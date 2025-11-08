@@ -61,26 +61,33 @@ Use these examples as a starting point. Replace table/column names with your mod
 -- Basic sums
 Total Revenue = SUM(Transactions[RevenueNet])
 Total COGS = SUM(Transactions[Cost])
+
 -- Profit & margin
 Gross Profit = [Total Revenue] - [Total COGS]
 Gross Margin % = DIVIDE([Gross Profit], [Total Revenue], 0)
+
 -- Operating metrics (assuming Opex is in GLEntries segregated)
 Total Opex = CALCULATE(SUM(GLEntries[Amount]), FILTER(Accounts, Accounts[Type]="OPEX"))
 EBITDA = [Gross Profit] - [Total Opex]
 EBITDA Margin % = DIVIDE([EBITDA], [Total Revenue], 0)
+
 -- Time intelligence
 Revenue LY = CALCULATE([Total Revenue], SAMEPERIODLASTYEAR(Date[Date]))
 YoY Revenue % = DIVIDE([Total Revenue] - [Revenue LY], [Revenue LY], 0)
+
 -- Month over month
 Revenue Prev Month = CALCULATE([Total Revenue], PREVIOUSMONTH(Date[Date]))
 MoM Growth % = DIVIDE([Total Revenue] - [Revenue Prev Month], [Revenue Prev Month], 0)
+
 -- ARPU
 Active Customers = DISTINCTCOUNT(Transactions[CustomerID])
 ARPU = DIVIDE([Total Revenue], [Active Customers], 0)
+
 -- DSO (example - requires AR and Sales values)
 Average Daily Sales = DIVIDE([Total Revenue], DISTINCTCOUNT(Date[Date])) -- refine as needed
 DSO = DIVIDE([AccountsReceivableTotal], [Average Daily Sales], 0)
-5. Visuals (what to build + interpretation guidance)
+
+6. Visuals (what to build + interpretation guidance)
 A. Executive summary / KPI card row
 KPIs: Total Revenue, Gross Profit, EBITDA, Net Profit, Gross Margin %, EBITDA Margin %, MoM Growth, YoY Growth, DSO.
 Interpretation: Use conditional formatting (green/red) and small deltas showing YoY / MoM.
@@ -110,7 +117,7 @@ what it shows,
 how to interpret it,
 recommended action if metric deviates from target.
 
-6. Example insights report (template — replace placeholders with real nums)
+7. Example insights report (template — replace placeholders with real nums)
 Executive summary
 Total Revenue (FY2024): ₹ [Total Revenue] — YoY growth [YoY%] (vs FY2023).
 Gross Profit: ₹ [GrossProfit] (Gross Margin [GrossMargin%]).
